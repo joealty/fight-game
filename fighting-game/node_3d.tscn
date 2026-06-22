@@ -1,0 +1,213 @@
+[gd_scene format=3 uid="uid://cem8uq4oqyxck"]
+
+[ext_resource type="Script" uid="uid://cnip6uq1eguaq" path="res://node_3d.gd" id="1_a202f"]
+[ext_resource type="AudioStream" uid="uid://qlutxv8w0ilx" path="res://dragon-studio-hard-punch-sfx-515251.mp3" id="2_noarx"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4xowi"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a202f"]
+radius = 0.1
+height = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4xowi"]
+noise_type = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a202f"]
+noise = SubResource("FastNoiseLite_4xowi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noarx"]
+albedo_color = Color(0.68241346, 0.5775957, 0.38882905, 1)
+albedo_texture = SubResource("NoiseTexture2D_a202f")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a0tk4"]
+material = SubResource("StandardMaterial3D_noarx")
+size = Vector2(10, 10)
+
+[sub_resource type="Animation" id="Animation_a202f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/Arm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.69850314, -0.01639375, 0.039737463)]
+}
+
+[sub_resource type="Animation" id="Animation_noarx"]
+resource_name = "punch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/Arm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5144784, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.69850314, -0.01639375, 0.039737463), Vector3(-0.69850314, -0.01639378, -0.11008513), Vector3(-0.69850314, -0.01639375, 0.039737463)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a0tk4"]
+_data = {
+&"RESET": SubResource("Animation_a202f"),
+&"punch": SubResource("Animation_noarx")
+}
+
+[sub_resource type="Theme" id="Theme_a202f"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_a0tk4"]
+
+[sub_resource type="Animation" id="Animation_r3fl7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.7741683, 1.1373842, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jka67"]
+resource_name = "pucnching bag"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.7741683, 1.1373842, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23214269, 0.40781823, 0.545849, 0.6838798, 0.8281847, 0.9034742, 0.97876376),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.31644568), Vector3(0, 0, 0.3583859), Vector3(0, 0, -0.16800542), Vector3(0, 0, 0.27141613), Vector3(0, 0, -0.07450814), Vector3(0, 0, 0.049776748), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i5arm"]
+_data = {
+&"RESET": SubResource("Animation_r3fl7"),
+&"pucnching bag": SubResource("Animation_jka67")
+}
+
+[node name="Main" type="Node3D" unique_id=872696529]
+script = ExtResource("1_a202f")
+
+[node name="body" type="MeshInstance3D" parent="." unique_id=755897017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_4xowi")
+
+[node name="Arm" type="MeshInstance3D" parent="body" unique_id=1464275125]
+transform = Transform3D(0.5101092, 0.35249788, 0.7845597, -0.747272, 0.6332845, 0.20133437, -0.42587957, -0.688982, 0.58645606, -0.69850314, -0.01639375, 0.039737463)
+mesh = SubResource("CapsuleMesh_a202f")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=14276411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0839596, 2.7774615)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1641327204]
+transform = Transform3D(1, 0, 0, 0, -0.008499683, 0.9999639, 0, -0.9999639, -0.008499683, 0, 5.7579823, 0.33915567)
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=207130978]
+mesh = SubResource("PlaneMesh_a0tk4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=154991836]
+libraries/ = SubResource("AnimationLibrary_a0tk4")
+
+[node name="Control" type="Control" parent="." unique_id=1093783035]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control" unique_id=1812164602]
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 23.0
+scale = Vector2(2.5, 2.5)
+text = "Stamina"
+
+[node name="stamina" type="ColorRect" parent="Control" unique_id=984000126]
+top_level = true
+layout_mode = 0
+offset_left = 166.0
+offset_top = 13.0
+offset_right = 671.0
+offset_bottom = 53.0
+color = Color(0.35686275, 0.9647059, 1, 1)
+
+[node name="Label2" type="Label" parent="Control" unique_id=1651434971]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 66.0
+offset_right = 132.0
+offset_bottom = 89.0
+scale = Vector2(1.5, 1.5)
+theme = SubResource("Theme_a202f")
+text = "Health"
+
+[node name="healthborder" type="ColorRect" parent="Control" unique_id=152680955]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 61.0
+offset_right = 664.0
+offset_bottom = 101.0
+color = Color(0, 0, 0, 1)
+
+[node name="health" type="ColorRect" parent="Control" unique_id=23281467]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 66.0
+offset_right = 659.0
+offset_bottom = 95.0
+color = Color(0.6, 1, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=898106093]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 6.0
+offset_right = 678.0
+offset_bottom = 60.0
+color = Color(0.0415072, 0.041507192, 0.041507192, 1)
+
+[node name="punchingBag" type="MeshInstance3D" parent="." unique_id=587652152]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 2.7741683, 1.1373842, 0)
+mesh = SubResource("CylinderMesh_a0tk4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="punchingBag" unique_id=1142467394]
+libraries/ = SubResource("AnimationLibrary_i5arm")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1057034843]
+stream = ExtResource("2_noarx")
